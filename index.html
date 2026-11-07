@@ -61,29 +61,53 @@ input,button{font-size:inherit;}
  .view{max-width:680px;margin-left:auto;margin-right:auto;}
 }
 
+.fi{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none}
 .stack{display:flex;flex-direction:column;gap:clamp(11px,3vw,16px)}
 .appic{width:64px;height:64px;border-radius:15px;object-fit:cover;flex:0 0 auto;border:1px solid #6A4A2A;box-shadow:0 4px 14px #0008}
 /* 内置播放器：嵌在影片库页面里 */
-.inplayer{display:block;background:#000;border:1px solid #A87939;border-radius:16px;overflow:hidden;box-shadow:0 5px 22px #000c,0 0 12px #D99B4544}
+.inplayer{display:block}
 .inplayer[hidden]{display:none}
-.inplayer video{display:block;width:100%;aspect-ratio:16/9;max-height:60vh;object-fit:contain;background:#000}
-.pinfo{display:flex;gap:10px;align-items:center;padding:10px 12px;background:#100b08}
+.inplayer video{display:block;width:100%;aspect-ratio:16/9;max-height:60vh;object-fit:contain;background:#000;border-radius:14px}
+.pinfo{display:flex;gap:10px;align-items:center;padding:8px 2px}
 .pinfo .btn{min-height:38px;padding:0 14px;font-size:13px;flex:0 0 auto}
 /* 素材管理 */
 .seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.seg .btn{min-height:42px;padding:0 6px}
 .mrow{display:flex;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #2A1F16}.mrow:last-child{border-bottom:0}.mrow .nm{flex:1;min-width:0}.mrow .btn{min-height:38px;padding:0 12px;font-size:13px;flex:0 0 auto}
 .song.cur .nm b{color:var(--g)}
 @media(min-width:600px){.inplayer video{max-height:56vh}}
+.slhero{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/3;max-height:46vh;border:1px solid var(--l);display:flex;align-items:flex-end}
+.slhero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.slhero .moon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:84px;color:#ffffff26}
+.slhero .shade{position:absolute;inset:0;background:linear-gradient(transparent 40%,#0E0B09ee)}
+.slhero .info{position:relative;padding:16px 18px;width:100%;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.nm2{font-size:28px;font-weight:600;letter-spacing:3px;color:#FFE2B8;text-shadow:0 2px 12px #000a}
+.pills{display:flex;gap:8px}.pills span{font-size:12px;padding:3px 10px;border-radius:12px;background:#0008;color:var(--m);border:1px solid #ffffff18}.pills span.ok{color:var(--g);border-color:#F2B96855}
+.lnk{background:none;border:0;color:var(--g);font:inherit;font-size:13px;padding:2px 0}
+.sc-row{display:flex;gap:14px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}.sc-row::-webkit-scrollbar{display:none}
+.sc{flex:0 0 auto;width:72px;background:none;border:0;color:var(--m);font:inherit;font-size:12px;text-align:center;padding:0}
+.sc .th{position:relative;width:72px;height:72px;border-radius:22px;overflow:hidden;border:2px solid transparent;margin-bottom:6px}
+.sc.on{color:var(--g)}.sc.on .th{border-color:var(--g)}
+.sc video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.sc .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ffffff40}
+.lab{font-size:12px;color:var(--m);letter-spacing:2px;margin-bottom:8px}
+.sg{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:4px;background:#130D09;border:1px solid var(--l);border-radius:16px;padding:4px}
+.sg button{min-height:40px;border:0;border-radius:12px;background:none;color:var(--m);font:inherit;font-size:14px;padding:0 4px}
+.sg button.on{background:#2E2117;color:var(--g);font-weight:600}
+.cap{margin-top:8px;line-height:1.5}
+.go{min-height:54px;font-size:17px;letter-spacing:2px}.go.dis{background:#241A13;color:var(--m);border:1px solid #4A3828;font-weight:500}
+#rec.mini{display:none}
+.btn.sm{min-height:34px;padding:0 12px;font-size:13px}
+.sel{min-height:46px;border-radius:23px;border:1px solid #4A3828;color:var(--t);padding:0 36px 0 20px;font:inherit;font-size:15px;-webkit-appearance:none;appearance:none;text-align:center;text-align-last:center;background:#1C1511 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23F2B968' stroke-width='2'/></svg>") no-repeat right 16px center}
 </style></head><body>
-<section class="view on" id="v-home"></section><section class="view" id="v-lib"><h1 style="font-size:26px">影片库</h1><div class="inplayer" id="vplayer" hidden><video id="pv" controls playsinline webkit-playsinline preload="metadata"></video><div class="pinfo"><div style="flex:1;min-width:0"><b id="pvn" style="display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis"></b><span class="m" id="pvm"></span></div><button class="btn" data-act="vclose">收起</button></div></div><div class="stack" id="vlist"></div></section><section class="view" id="v-mus"></section><section class="view" id="v-sleep"></section><section class="view" id="v-me"></section><section class="view" id="v-set"></section><section class="view" id="v-mgr"></section>
+<section class="view on" id="v-home"></section><section class="view" id="v-lib"><h1 style="font-size:26px">影片库</h1><div class="inplayer" id="vplayer" hidden><video id="pv" controls playsinline webkit-playsinline preload="metadata"></video><div class="pinfo"><div style="flex:1;min-width:0"><b id="pvn" style="display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis"></b><span class="m" id="pvm"></span></div><button class="lnk" data-act="vclose">关闭 ✕</button></div></div><div class="stack" id="vlist"></div></section><section class="view" id="v-mus"></section><section class="view" id="v-sleep"></section><section class="view" id="v-me"></section><section class="view" id="v-set"></section><section class="view" id="v-mgr"></section><section class="view" id="v-bak"></section>
 <nav id="tabs"><button data-act="tab" data-v="home" class="on">首页</button><button data-act="tab" data-v="lib">影片库</button><button data-act="tab" data-v="mus">音乐</button><button data-act="tab" data-v="sleep">助眠</button><button data-act="tab" data-v="me">我的</button></nav>
-<div class="ov" id="rec"></div><div class="ov" id="sl"></div><div class="ov" id="sheet" style="background:#0A0705cc;justify-content:flex-end"></div>
-<input type="file" id="fv" accept="video/*" multiple hidden><input type="file" id="fm" accept="audio/mpeg,audio/*,.mp3" multiple hidden><input type="file" id="fs" hidden>
+<video id="rv" muted playsinline webkit-playsinline style="position:fixed;left:0;top:0;width:2px;height:2px;opacity:.01;pointer-events:none"></video><div class="ov" id="sl"></div><div class="ov" id="sheet" style="background:#0A0705cc;justify-content:flex-end"></div>
+<input type="file" class="fi" id="fv" accept="video/*" multiple><input type="file" class="fi" id="fvx" multiple><input type="file" class="fi" id="fm" accept="audio/*,.mp3" multiple><input type="file" class="fi" id="fmx" multiple><input type="file" class="fi" id="fsv" accept="video/*"><input type="file" class="fi" id="fsa" accept="audio/*,.mp3"><input type="file" class="fi" id="fbk">
 <div id="toast"></div>
 <script>
 const $=s=>document.querySelector(s);
 const ICON=document.querySelector('link[rel="icon"]').href;
-const G={t:'vid',pl:'all',sc:'fire',k:'vid'};const PAR={set:'me',mgr:'me'};
+const G={t:'vid',pl:'all',sc:'fire',k:'vid'};const ENV={frame:(()=>{try{return window.self!==window.top}catch(e){return true}})(),db:null,err:''};const PAR={set:'me',mgr:'me',bak:'me'},MEV=['me','set','mgr','bak'],U={me:false},CB='color:var(--t);font:inherit;text-align:left;justify-content:space-between;flex-wrap:nowrap';
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fs=b=>b>=1073741824?(b/1073741824).toFixed(2)+' GB':b>=1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB';
 const ft=s=>{if(!isFinite(s))return'--:--';s=Math.floor(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),r=s%60,p=n=>String(n).padStart(2,'0');return(h?h+':':'')+p(m)+':'+p(r)};
@@ -100,52 +124,64 @@ if(!vid){e.onloadedmetadata=()=>fin();e.src=url;return}
 e.onloadeddata=()=>{try{e.currentTime=Math.min(1,(e.duration||2)/2)}catch(x){}};
 e.onseeked=()=>{try{const c=document.createElement('canvas');c.width=240;c.height=360;const x=c.getContext('2d'),w=e.videoWidth,h=e.videoHeight,s=Math.max(240/w,360/h);x.drawImage(e,(240-w*s)/2,(360-h*s)/2,w*s,h*s);fin(c.toDataURL('image/jpeg',.7))}catch(z){fin()}};e.src=url});
 const uid=p=>p+Date.now()+Math.random().toString(36).slice(2,6);
+const errTxt=e=>{if(!e)return'未知原因';if(e.name==='QuotaExceededError')return'空间不足';return((e.name||'')+' '+(e.message||'')).trim()||'未知原因'};
 /* 影片 */
 const V={items:[]};
 async function loadV(){try{if(navigator.storage&&navigator.storage.persist)await navigator.storage.persist().catch(()=>false);const rows=(await run(vopen,'videos','readonly',s=>s.getAll()))||[];rows.sort((a,b)=>(a.added||0)-(b.added||0));V.items=rows.map(r=>({id:r.id,name:r.name,size:r.size,url:URL.createObjectURL(r.blob)}))}catch(e){}
 renderAll();for(const v of V.items){if(v.dur==null){const m=await meta(v.url,1);v.dur=m.dur;v.thumb=m.thumb;renderAll()}}}
-async function addVideos(files,keep){const fl=[...files].filter(f=>f.type.startsWith('video/')||/\.(mp4|mov|m4v|webm|mkv|3gp)$/i.test(f.name));if(!fl.length)return toast('没有选到视频文件');let ok=0;
-for(const f of fl){try{await run(vopen,'videos','readwrite',s=>s.put({id:uid('v'),name:f.name,size:f.size,blob:f,added:Date.now()}));ok++}catch(e){}}
-toast(ok===fl.length?'已保存到本机':'部分视频没能保存（空间不足或浏览器不允许）');loadV()}
+async function addVideos(files,keep){const fl=[...files].filter(f=>f.type.startsWith('video/')||/\.(mp4|mov|m4v|webm|mkv|3gp)$/i.test(f.name));if(!fl.length)return toast('没有识别到视频文件（支持 mp4 / mov / mkv / webm 等）');let ok=0,bad='';
+for(const f of fl){try{await run(vopen,'videos','readwrite',s=>s.put({id:uid('v'),name:f.name,size:f.size,blob:f,added:Date.now()}));ok++}catch(e){bad=errTxt(e)}}
+toast(ok===fl.length?'已保存 '+ok+' 个到本机':'有影片没能保存：'+bad);loadV()}
 const poster=v=>`<button class="po" data-act="vplay" data-id="${v.id}"><div class="im" style="${v.thumb?`background-image:url(${v.thumb})`:''}">${ft(v.dur)}</div><b>${esc(v.name)}</b></button>`;
 function openV(id){const v=V.items.find(x=>x.id==id);if(!v)return;V.cur=v;au.pause();stopSl(1);
 const el=$('#pv'),pr=ls('prog',{});$('#pvn').textContent=v.name;$('#pvm').textContent=fs(v.size)+' · 本地收藏';
 el.onloadedmetadata=()=>{if(el.videoWidth&&el.videoHeight)el.style.aspectRatio=el.videoWidth+'/'+el.videoHeight;if(pr[v.id]>3&&pr[v.id]<el.duration-3)el.currentTime=pr[v.id]};
 el.ontimeupdate=()=>{const q=ls('prog',{});q[v.id]=el.currentTime;sv('prog',q);sv('recent',v.id)};
-el.style.aspectRatio='';el.src=v.url;$('#vplayer').hidden=false;tab('lib');el.play().catch(()=>{})}
+el.style.aspectRatio='';el.src=v.url;$('#vplayer').hidden=false;tab('lib');el.play().catch(()=>{});
+setTimeout(()=>{if(/iPhone|iPod/.test(navigator.userAgent)&&el.webkitDisplayingFullscreen){$('#pvm').textContent='提示：当前浏览器强制全屏播放（App 内置浏览器常见），请用 Safari 打开本页即可内嵌';toast('当前浏览器强制全屏播放，请改用 Safari 打开')}},1500)}
 function closeV(){const e=$('#pv');e.pause();e.removeAttribute('src');e.load();V.cur=null;$('#vplayer').hidden=true;renderAll()}
 async function delV(id){const v=V.items.find(x=>x.id==id);if(!v||!confirm('确定删除「'+v.name+'」？删除后无法恢复。'))return;if(V.cur&&V.cur.id==id)closeV();await run(vopen,'videos','readwrite',x=>x.delete(id));const p=ls('prog',{});delete p[id];sv('prog',p);loadV()}
 /* 音乐 */
-const M={items:[],cur:null,pl:'all',q:[]};let PL=ls('pl',[]);const au=new Audio();au.preload='metadata';au.setAttribute('playsinline','');
+const M={items:[],cur:null,pl:'all',q:[],mode:ls('mmode','list'),hist:[],tp:false};
+const MODES={list:'列表循环',one:'单曲循环',shuffle:'随机播放',single:'单曲播放'},MT={end:0,after:false,vol:null};
+const tLabel=()=>MT.after?'本曲播完后关闭':MT.end?'定时 '+ft((MT.end-Date.now())/1000):'定时关闭';
+const applyLoop=()=>{au.loop=M.mode==='one'&&!MT.after};let PL=ls('pl',[]);const au=new Audio();au.preload='metadata';au.setAttribute('playsinline','');
 async function loadM(){try{const rows=(await run(mopen,'songs','readonly',s=>s.getAll()))||[];rows.sort((a,b)=>a.added-b.added);M.items=rows.map(r=>({id:r.id,name:r.name,size:r.size,url:URL.createObjectURL(r.blob)}))}catch(e){}
 renderMus();for(const s of M.items){if(s.dur==null){s.dur=(await meta(s.url,0)).dur;renderMus()}}}
-async function addSongs(files){const fl=[...files].filter(f=>f.type.startsWith('audio/')||/\.(mp3|m4a|aac|wav)$/i.test(f.name));if(!fl.length)return toast('没有选到音乐文件');
-for(const f of fl){try{await run(mopen,'songs','readwrite',s=>s.put({id:uid('s'),name:f.name.replace(/\.[^.]+$/,''),size:f.size,blob:f,added:Date.now()}))}catch(e){toast('保存失败：空间不足')}}loadM()}
+async function addSongs(files){const fl=[...files].filter(f=>f.type.startsWith('audio/')||/\.(mp3|m4a|aac|wav)$/i.test(f.name));if(!fl.length)return toast('没有识别到音乐文件（支持 mp3 / m4a / aac / wav）');let bad='';
+for(const f of fl){try{await run(mopen,'songs','readwrite',s=>s.put({id:uid('s'),name:f.name.replace(/\.[^.]+$/,''),size:f.size,blob:f,added:Date.now()}))}catch(e){bad=errTxt(e)}}toast(bad?'有歌曲没能保存：'+bad:'已保存 '+fl.length+' 首');loadM()}
 const queue=()=>M.pl==='all'?M.items:(PL.find(p=>p.id==M.pl)?PL.find(p=>p.id==M.pl).ids.map(i=>M.items.find(s=>s.id==i)).filter(Boolean):[]);
-function playS(id){const s=M.items.find(x=>x.id==id);if(!s)return;M.q=queue();if(!M.q.find(x=>x.id==id))M.q=M.items;M.cur=id;au.src=s.url;au.play().catch(()=>toast('点播放键开始'));
+function playS(id){const s=M.items.find(x=>x.id==id);if(!s)return;M.q=queue();if(!M.q.find(x=>x.id==id))M.q=M.items;M.cur=id;if(M.hist[M.hist.length-1]!=id)M.hist.push(id);if(M.hist.length>60)M.hist.shift();au.src=s.url;au.play().catch(()=>toast('点播放键开始'));
 if('mediaSession'in navigator&&typeof MediaMetadata!=='undefined'){navigator.mediaSession.metadata=new MediaMetadata({title:s.name,artist:'映心影院'});navigator.mediaSession.setActionHandler('play',()=>au.play());navigator.mediaSession.setActionHandler('pause',()=>au.pause());navigator.mediaSession.setActionHandler('previoustrack',()=>step(-1));navigator.mediaSession.setActionHandler('nexttrack',()=>step(1))}renderMus()}
-function step(d){if(!M.q.length)M.q=queue();const i=M.q.findIndex(x=>x.id==M.cur);if(!M.q.length)return;playS(M.q[(i+d+M.q.length)%M.q.length].id)}
-au.onended=()=>step(1);au.onplay=au.onpause=()=>{if(!au.paused){const pe=$('#pv');if(pe&&!pe.paused)pe.pause()}const v=$('#vin');if(v)v.classList.toggle('spin',!au.paused);const b=$('#pp');if(b)b.textContent=au.paused?'播放':'暂停'};
+function step(d){if(!M.q.length)M.q=queue();if(!M.q.length)return;
+if(M.mode==='shuffle'){if(d<0&&M.hist.length>1){M.hist.pop();return playS(M.hist.pop())}if(M.q.length>1){let r;do{r=M.q[Math.floor(Math.random()*M.q.length)]}while(r.id==M.cur);return playS(r.id)}return playS(M.q[0].id)}
+const i=M.q.findIndex(x=>x.id==M.cur);playS(M.q[(i+d+M.q.length)%M.q.length].id)}
+au.onended=()=>{if(MT.after){MT.after=false;applyLoop();renderMus();return toast('音乐已按定时关闭')}if(M.mode==='single'){renderMus();return}step(1)};au.onplay=au.onpause=()=>{if(!au.paused){const pe=$('#pv');if(pe&&!pe.paused)pe.pause()}const v=$('#vin');if(v)v.classList.toggle('spin',!au.paused);const b=$('#pp');if(b)b.textContent=au.paused?'播放':'暂停'};
 au.ontimeupdate=()=>{const r=$('#ms');if(r&&!r.dragging){r.max=au.duration||0;r.value=au.currentTime}const t=$('#mt');if(t)t.textContent=ft(au.currentTime)+' / '+ft(au.duration)};
 function sheet(html){const s=$('#sheet');s.innerHTML=`<div class="card" style="display:flex;flex-direction:column;gap:10px">${html}<button class="btn" data-act="sclose">关闭</button></div>`;s.classList.add('on')}
 function renderMus(){const cur=M.items.find(s=>s.id==M.cur),q=queue();
 $('#v-mus').innerHTML=`<h1 style="font-size:26px">我的音乐</h1><div class="card" style="background:linear-gradient(160deg,#2A1B3A,#150F0B);border-color:#6A3A7A"><div class="vin ${au.paused?'':'spin'}" id="vin">♪</div><h2 style="text-align:center;font-size:17px">${cur?esc(cur.name):'选一首歌开始播放'}</h2>
 <input type="range" id="ms" min="0" max="${au.duration||0}" value="${au.currentTime||0}" aria-label="播放进度"><div class="row" style="justify-content:space-between"><span class="m" id="mt">${ft(au.currentTime)} / ${ft(au.duration)}</span></div>
 <div class="row" style="justify-content:center;margin:8px 0"><button class="btn" data-act="mprev">上一首</button><button class="btn gold" id="pp" data-act="mpp" style="min-width:84px">${au.paused?'播放':'暂停'}</button><button class="btn" data-act="mnext">下一首</button></div>
+<div class="row" style="justify-content:center"><select id="mmsel" class="sel">${Object.keys(MODES).map(k=>`<option value="${k}"${M.mode===k?' selected':''}>${MODES[k]}</option>`).join('')}</select><button class="btn ${MT.end||MT.after?'on2':''}" data-act="mtimer" id="mtm">${tLabel()}</button></div>${M.tp?`<div class="chips" style="justify-content:center">${[15,30,45,60,90].map(m=>`<button class="btn" data-act="mset" data-m="${m}">${m} 分钟</button>`).join('')}<button class="btn" data-act="mset" data-m="after">本曲播完</button><button class="btn danger" data-act="mset" data-m="0">取消定时</button></div>`:''}
 <label class="m">音量（iPhone 请用侧边音量键）<input type="range" id="mv" min="0" max="100" value="${Math.round(au.volume*100)}"></label></div>
 ${PL.length?`<div class="chips"><button class="btn ${M.pl==='all'?'on2':''}" data-act="mpl" data-id="all">全部</button>${PL.map(p=>`<button class="btn ${M.pl==p.id?'on2':''}" data-act="mpl" data-id="${p.id}">${esc(p.name)}</button>`).join('')}</div>`:''}
 <div>${q.map(s=>`<div class="song ${M.cur==s.id?'cur':''}"><button class="nm" data-act="mplay" data-id="${s.id}"><b>${esc(s.name)}</b><span class="m">${ft(s.dur)} · ${fs(s.size)}</span></button></div>`).join('')||'<p class="m">'+(M.pl==='all'?'还没有歌曲，请到「我的 → 设置 → 素材管理」添加。':'这个歌单还没有歌曲')+'</p>'}</div>
 <p class="m">锁屏后台播放：播放中锁屏通常可继续，锁屏界面显示上一首/下一首；各 iOS 版本表现不同，请实机测试。</p>`;
 const r=$('#ms');r.addEventListener('input',()=>{r.dragging=1;au.currentTime=r.value;clearTimeout(r.t);r.t=setTimeout(()=>r.dragging=0,400)});$('#mv').addEventListener('input',e=>au.volume=e.target.value/100);rmg()}
 /* 助眠：画面与声音需用户自己放入真实素材，不内置假素材 */
-const SC=[{id:'fire',n:'壁炉'},{id:'forest',n:'山林'},{id:'rain',n:'雨夜'},{id:'sea',n:'海边'}],SS={sel:'fire',min:60},SD={};
+const SC=[{id:'fire',n:'壁炉'},{id:'forest',n:'山林'},{id:'rain',n:'雨夜'},{id:'sea',n:'海边'}],SS={sel:'fire',min:60,br:ls('sbr','off')},SD={};ls('scx',[]).forEach(x=>SC.push(x));
 async function loadSc(){for(const s of SC){try{SD[s.id]=await run(mopen,'scenes','readonly',x=>x.get(s.id))||{id:s.id}}catch(e){SD[s.id]={id:s.id}}}renderSleep()}
-function renderSleep(){const d=SD[SS.sel]||{};$('#v-sleep').innerHTML=`<h1 style="font-size:26px">自然助眠</h1><p class="m">每个场景使用你自己放入的真实画面视频和环境声音（本机保存）。</p>
-<div class="chips">${SC.map(s=>`<button class="btn ${SS.sel===s.id?'on2':''}" data-act="ssel" data-id="${s.id}">${s.n}</button>`).join('')}</div>
-<div class="card"><div class="row" style="justify-content:space-between;flex-wrap:nowrap"><span>画面视频</span><span class="m">${d.vid?'✓ 已添加':'未添加'}</span></div><div class="row" style="justify-content:space-between;flex-wrap:nowrap;margin-top:8px"><span>环境声音</span><span class="m">${d.aud?'✓ 已添加':'未添加'}</span></div></div>${d.aud?'':'<p class="m">这个场景还没有环境声音，请到「我的 → 设置 → 素材管理」添加。</p>'}
-<p class="m">入睡时间：到点后画面关闭，声音继续并在 30 分钟内逐渐淡出后关闭；「整夜」画面 30 分钟后关闭，声音约 8 小时。</p>
-<div class="chips">${[30,60,90,0].map(m=>`<button class="btn ${SS.min===m?'on2':''}" data-act="smin" data-m="${m}">${m?m+' 分钟':'整夜'}</button>`).join('')}</div>
-<button class="btn gold" data-act="sgo">开始入睡模式</button>`;rmg()}
+const SU={},SG=[['#3A2418','#1B1210'],['#1E2B2A','#0F1514'],['#1F2233','#0F1018'],['#14303A','#0B151A'],['#33261A','#171009'],['#2E1E33','#150E17']];
+function scUrl(id,f){const c=SU[id];if(c&&c.f===f)return c.u;if(c)URL.revokeObjectURL(c.u);const u=URL.createObjectURL(f);SU[id]={f,u};return u}
+function renderSleep(){const cur=SC.find(x=>x.id===SS.sel)||SC[0];SS.sel=cur.id;const d=SD[cur.id]||{},bg=i=>`linear-gradient(160deg,${SG[i%SG.length][0]},${SG[i%SG.length][1]})`;
+const fr=(id,f)=>`<video src="${scUrl(id,f)}#t=0.1" muted playsinline preload="metadata" tabindex="-1"></video>`;
+const seg=(act,key,val,items)=>`<div class="sg" style="--n:${items.length}">${items.map(x=>`<button class="${val===x[0]?'on':''}" data-act="${act}" data-${key}="${x[0]}">${x[1]}</button>`).join('')}</div>`;
+$('#v-sleep').innerHTML=`<h1 style="font-size:26px">自然助眠</h1>
+<div class="slhero" style="background:${bg(SC.indexOf(cur))}">${d.vid?fr(cur.id,d.vid):'<div class="moon">☾</div>'}<div class="shade"></div><div class="info"><div class="nm2">${esc(cur.n)}</div><div class="pills"><span class="${d.vid?'ok':''}">画面${d.vid?' ✓':' 未添加'}</span><span class="${d.aud?'ok':''}">声音${d.aud?' ✓':' 未添加'}</span></div>${d.vid&&d.aud?'':'<button class="lnk" data-act="tab" data-v="mgr">去素材管理添加 ›</button>'}</div></div>
+<div class="sc-row">${SC.map((x,i)=>{const v=(SD[x.id]||{}).vid;return `<button class="sc ${x.id===cur.id?'on':''}" data-act="ssel" data-id="${x.id}"><div class="th" style="background:${bg(i)}">${v?fr(x.id,v):'<span class="ph">☾</span>'}</div>${esc(x.n)}</button>`}).join('')}</div>
+<div class="card"><div class="lab">入睡时间</div>${seg('smin','m',SS.min,[[30,'30 分钟'],[60,'60 分钟'],[90,'90 分钟'],[0,'整夜']])}<p class="m cap">${SS.min?SS.min+' 分钟后画面熄灭，声音继续播放并逐渐淡出':'画面 30 分钟后熄灭，声音整夜播放（约 8 小时）'}</p><div class="lab" style="margin-top:14px">呼吸引导</div>${seg('sbr','b',SS.br,[['off','关闭'],['478','4-7-8'],['55','5-5']])}</div>
+<button class="btn gold go ${d.aud?'':'dis'}" data-act="sgo">${d.aud?'开始入睡':'先添加环境声音'}</button>`;rmg()}
 let sl=null;
 function startSl(){const d=SD[SS.sel];if(!d||!d.aud)return toast('请先到「我的 → 设置 → 素材管理」给这个场景添加环境声音');stopSl(1);const pe=$('#pv');if(pe)pe.pause();
 const a=document.createElement('audio');a.loop=true;a.setAttribute('playsinline','');a.src=URL.createObjectURL(d.aud);
@@ -156,33 +192,44 @@ o.innerHTML=`${d.vid?`<video id="sv" loop muted autoplay playsinline webkit-play
 o.classList.add('on');$('#sv1').oninput=e=>{sl.vol=e.target.value/100;applyVol()};$('#sv2').oninput=e=>$('#dim').style.opacity=1-e.target.value/100;
 applyVol();a.play().catch(()=>toast('无法播放声音'));const sv_=$('#sv');if(sv_)sv_.play().catch(()=>{});try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(w=>sl.wl=w).catch(()=>{})}catch(e){}
 if('mediaSession'in navigator&&typeof MediaMetadata!=='undefined')navigator.mediaSession.metadata=new MediaMetadata({title:SC.find(s=>s.id===SS.sel).n,artist:'映心影院 · 自然助眠'});
-sl.t=setInterval(tickSl,1000)}
+sl.t=setInterval(tickSl,1000);if(SS.br!=='off')breath()}
+function breath(){$('#sl').insertAdjacentHTML('beforeend','<div id="br" style="position:absolute;left:0;right:0;top:30%;text-align:center;pointer-events:none"><div id="brc" style="width:120px;height:120px;border-radius:50%;margin:0 auto;background:radial-gradient(circle,#F2B96899,#F2B96822 70%)"></div><div id="brt" style="margin-top:16px;color:#FFE2B8;font-size:20px;text-shadow:0 1px 8px #000"></div></div>');
+const P=SS.br==='478'?[['吸气',4,1.8],['屏息',7,1.8],['呼气',8,1]]:[['吸气',5,1.8],['呼气',5,1]];let i=0;
+const go=()=>{if(!sl||sl.picOff)return;const p=P[i++%P.length],c=$('#brc'),t=$('#brt');if(!c)return;t.textContent=p[0];c.style.transition='transform '+p[1]+'s ease-in-out';c.style.transform='scale('+p[2]+')';sl.bt=setTimeout(go,p[1]*1000)};go()}
 function applyVol(f=1){if(!sl)return;sl.a.volume=Math.max(0,Math.min(1,sl.vol*f))}
-function tickSl(){const n=Date.now();if(n>=sl.end)return stopSl();if(n>=sl.off&&!sl.picOff){sl.picOff=true;const v=$('#sv');if(v)v.pause();$('#dim').style.opacity=1;if(sl.wl)sl.wl.release().catch(()=>{});sl.wl=null}
+function tickSl(){const n=Date.now();if(n>=sl.end)return stopSl();if(n>=sl.off&&!sl.picOff){sl.picOff=true;clearTimeout(sl.bt);const br=$('#br');if(br)br.remove();const v=$('#sv');if(v)v.pause();$('#dim').style.opacity=1;if(sl.wl)sl.wl.release().catch(()=>{});sl.wl=null}
 if(n>=sl.fade)applyVol(Math.max(0,(sl.end-n)/(sl.end-sl.fade)))}
-function stopSl(quiet){if(!sl)return;clearInterval(sl.t);sl.a.pause();sl.a.removeAttribute('src');if(sl.vu)URL.revokeObjectURL(sl.vu);if(sl.wl)sl.wl.release().catch(()=>{});sl=null;$('#sl').classList.remove('on');$('#sl').innerHTML='';if(!quiet)toast('助眠已结束')}
+function stopSl(quiet){if(!sl)return;clearInterval(sl.t);clearTimeout(sl.bt);sl.a.pause();sl.a.removeAttribute('src');if(sl.vu)URL.revokeObjectURL(sl.vu);if(sl.wl)sl.wl.release().catch(()=>{});sl=null;$('#sl').classList.remove('on');$('#sl').innerHTML='';if(!quiet)toast('助眠已结束')}
 /* 生活记录（我的 → 生活记录）：沿用 V3.5 的录制方式，增加状态显示、计时与分段保存 */
-const R={stream:null,mr:null,chunks:[],face:'user',on:false,q:1,t0:0,blob:null,timer:null};
+const R={src:ls('rsrc','mic'),vol:ls('rvol',1),stream:null,mr:null,chunks:[],face:'user',on:false,q:1,t0:0,blob:null,timer:null};
 async function initCam(){if(R.stream)R.stream.getTracks().forEach(t=>t.stop());const H=[720,1080][R.q];
-try{R.stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:R.face,width:{ideal:H*16/9},height:{ideal:H}},audio:true})}catch(e){try{R.stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true})}catch(z){R.stream=null;toast('请允许访问摄像头与麦克风')}}
+try{R.stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:R.face,width:{ideal:H*16/9},height:{ideal:H}},audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}})}catch(e){try{R.stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true})}catch(z){R.stream=null;toast('请允许访问摄像头与麦克风')}}
 const v=$('#rv');if(v&&R.stream){v.srcObject=R.stream;v.play().catch(()=>{});const s=R.stream.getVideoTracks()[0].getSettings();const i=$('#ri');if(i)i.textContent='实际画面 '+s.width+'×'+s.height+'，'+Math.round(s.frameRate||0)+' 帧'}}
-function renderRec(){const o=$('#rec');o.innerHTML=`<div class="row" style="justify-content:space-between"><button class="btn" data-act="rclose">${R.on?'返回主页（继续录制）':'返回'}</button><span id="rs" class="m"><span class="rd" style="background:#555"></span>未录制</span></div>
-<video id="rv" muted playsinline webkit-playsinline style="width:100%;max-height:50vh;background:#000;border-radius:16px;object-fit:cover"></video><p class="m" id="ri"></p>
-<div class="chips"><button class="btn ${R.q===0?'on2':''}" data-act="rq" data-q="0">标准 720p</button><button class="btn ${R.q===1?'on2':''}" data-act="rq" data-q="1">高清 1080p</button><button class="btn" data-act="rflip">翻转镜头</button></div>
-<div id="rb" class="row"><button class="btn gold" style="flex:1" data-act="rstart">开始录制</button></div><p class="m">录制前请确保双方知情。停止后可先试看，再决定导出或存入影片库。格式取决于本机浏览器支持，导入剪映的兼容性需实机验证。</p><div id="rr"></div>`;o.classList.add('on');initCam()}
-function startRec(){if(R.on||!R.stream)return;if(!window.MediaRecorder)return toast('当前浏览器不支持网页录像，请使用较新的 iPhone Safari');R.chunks=[];R.blob=null;let m=['video/mp4;codecs=avc1,mp4a.40.2','video/mp4','video/webm;codecs=vp8,opus','video/webm'].find(x=>{try{return MediaRecorder.isTypeSupported(x)}catch(e){return false}})||'';
-try{R.mr=new MediaRecorder(R.stream,m?{mimeType:m,audioBitsPerSecond:128000,videoBitsPerSecond:[4e6,8e6][R.q]}:{})}catch(e){return toast('录像服务不可用，请重试')}
+function recStream(){const AC=window.AudioContext||window.webkitAudioContext;if(!AC||!R.stream.getAudioTracks().length)return R.stream;
+const ac=R.ac||(R.ac=new AC());if(ac.resume)ac.resume();const d=ac.createMediaStreamDestination(),ms=ac.createMediaStreamSource(new MediaStream(R.stream.getAudioTracks())),g=ac.createGain(),cp=ac.createDynamicsCompressor();
+g.gain.value=[2.5,4.5,7][R.vol];cp.threshold.value=-16;cp.knee.value=10;cp.ratio.value=8;cp.attack.value=.003;cp.release.value=.2;ms.connect(g);g.connect(cp);cp.connect(d);R.tmp=[ms,g,cp];
+return new MediaStream([...R.stream.getVideoTracks(),...d.stream.getAudioTracks()])}
+function recDisc(){(R.tmp||[]).forEach(n=>{try{n.disconnect()}catch(e){}});R.tmp=[]}
+function recUI(){const p=$('#rp');if(p)p.outerHTML=recPanel()}
+function recPanel(){const on=R.on,ch=(k,v,t)=>`<button class="btn sm ${R[k]===v?'on2':''}" data-act="rset" data-k="${k}" data-v="${v}"${on?' disabled style="opacity:.45"':''}>${t}</button>`;
+return `<div class="card" id="rp"><div class="row" style="flex-wrap:nowrap;justify-content:space-between"><button class="btn ${on?'danger':''}" data-act="rgo" style="min-height:40px;padding:0 22px">${on?'停止':'录制'}</button><span class="m" id="rs">${on?'<span class="rd"></span>'+ft((Date.now()-R.t0)/1000):'未录制'}</span></div>
+<div class="chips" style="margin-top:10px">${ch('face','user','前置')}${ch('face','environment','后置')}${ch('q',0,'720p')}${ch('q',1,'1080p')}</div>
+<div class="chips"><span class="m" style="align-self:center">人声音量</span>${ch('vol',0,'标准')}${ch('vol',1,'加大')}${ch('vol',2,'最大')}</div>
+<div id="rr">${R.blob?`<p class="m">已录 ${fs(R.blob.size)} · ${R.ext.toUpperCase()}</p><div class="chips"><button class="btn sm" data-act="rview">试看</button><button class="btn sm" data-act="rexport">导出</button><button class="btn sm" data-act="rsave">存入影片库</button><button class="btn sm danger" data-act="rdrop">放弃</button></div>`:''}</div>
+<p class="m" style="font-size:11px;margin-top:8px">录制前请确保对方知情。</p></div>`}
+async function recGo(){if(R.on||R.busy)return;R.busy=1;try{const AC=window.AudioContext||window.webkitAudioContext;if(AC){R.ac=R.ac||new AC();R.ac.onstatechange=()=>{if(R.on&&R.ac.state!=='running')R.ac.resume().catch(()=>{})};R.ac.resume()}}catch(e){}try{await initCam();if(R.stream)startRec()}finally{R.busy=0}}
+function startRec(){if(R.on||!R.stream)return;if(!window.MediaRecorder)return toast('当前浏览器不支持网页录像，请使用较新的 Safari / Chrome');R.chunks=[];R.blob=null;let m=['video/mp4;codecs=avc1,mp4a.40.2','video/mp4','video/webm;codecs=vp8,opus','video/webm'].find(x=>{try{return MediaRecorder.isTypeSupported(x)}catch(e){return false}})||'';
+let RS=R.stream;try{RS=recStream()}catch(e){toast('音量增强不可用，改用原始麦克风声音');RS=R.stream}
+try{R.mr=new MediaRecorder(RS,m?{mimeType:m,audioBitsPerSecond:128000,videoBitsPerSecond:[4e6,8e6][R.q]}:{})}catch(e){return toast('录像服务不可用，请重试')}
 R.mr.ondataavailable=e=>{if(e.data&&e.data.size)R.chunks.push(e.data)};
-R.mr.onstop=()=>{const t=R.mr.mimeType||m||'video/mp4';R.blob=new Blob(R.chunks,{type:t});R.mr=null;R.on=false;clearInterval(R.timer);updateRecBadge();
-$('#rs').innerHTML='<span class="rd" style="background:#555"></span>未录制';$('#rb').innerHTML='<button class="btn gold" style="flex:1" data-act="rstart">重新录制</button>';
-if(!R.blob.size)return toast('这段录像是空的，请重试');R.ext=t.includes('webm')?'webm':'mp4';R.url=URL.createObjectURL(R.blob);
-$('#rr').innerHTML=`<div class="card" style="display:flex;flex-direction:column;gap:10px"><video src="${R.url}" controls playsinline style="width:100%;max-height:34vh;border-radius:12px;background:#000"></video><p class="m">${fs(R.blob.size)} · ${R.ext.toUpperCase()}</p><div class="row"><button class="btn" style="flex:1" data-act="rexport">导出 / 分享</button><button class="btn" style="flex:1" data-act="rsave">存入影片库</button><button class="btn danger" data-act="rdrop">放弃</button></div></div>`};
-try{R.mr.start(1000)}catch(e){R.mr=null;return toast('录像启动失败：'+(e.message||'请重试'))}R.on=true;R.t0=Date.now();$('#rr').innerHTML='';$('#rb').innerHTML='<button class="btn danger" style="flex:1;border-color:#E5483A" data-act="rstop">停止录制</button>';
-updateRecBadge();R.timer=setInterval(()=>{$('#rs').innerHTML='<span class="rd"></span>录制中 '+ft((Date.now()-R.t0)/1000);updateRecBadge()},500)}
-function closeRec(){if(R.on){$('#rec').classList.remove('on');tab('home');updateRecBadge();toast('录制仍在继续，可点击顶部录制提示返回');return}if(R.stream)R.stream.getTracks().forEach(t=>t.stop());R.stream=null;$('#rec').classList.remove('on');updateRecBadge()}
-function updateRecBadge(){} // 首页不显示网页自定义录制横幅；录制流与计时继续运行
-function returnRec(){if(!R.on)return;renderRecKeepStream();}
-function renderRecKeepStream(){const o=$('#rec');o.classList.add('on');const v=$('#rv');if(v&&R.stream){v.srcObject=R.stream;v.play().catch(()=>{})}const rs=$('#rs');if(rs)rs.innerHTML='<span class="rd"></span>录制中 '+ft((Date.now()-R.t0)/1000);const rb=$('#rb');if(rb)rb.innerHTML='<button class="btn danger" style="flex:1;border-color:#E5483A" data-act="rstop">停止录制</button>';const top=o.querySelector('[data-act="rclose"]');if(top)top.textContent='返回主页（继续录制）';updateRecBadge()}
+R.mr.onstop=()=>{recDisc();try{R.wl&&R.wl.release()}catch(e){}R.wl=null;if(!R.us)toast('录制被系统中断：'+(R.why||'原因未知')+(document.hidden?'（页面在后台）':'')+(!$('#pv').paused?'（电影在播放）':'')+(!au.paused?'（音乐在播放）':'')+'。已保留已录内容');
+const t=R.mr.mimeType||m||'video/mp4';R.blob=new Blob(R.chunks,{type:t});R.mr=null;R.on=false;clearInterval(R.timer);
+if(R.stream){R.stream.getTracks().forEach(x=>x.stop());R.stream=null}const v=$('#rv');if(v)v.srcObject=null;
+if(R.blob.size){R.ext=t.includes('webm')?'webm':'mp4';R.url=URL.createObjectURL(R.blob)}else{R.blob=null;toast('这段录像是空的，请重试')}recUI()};
+try{R.mr.start(1000)}catch(e){R.mr=null;return toast('录像启动失败：'+(e.message||'请重试'))}
+R.why='';R.stream.getTracks().forEach(tk=>{tk.onended=()=>{R.why+=(tk.kind==='video'?'摄像头':'麦克风')+'被系统关闭；'}});
+R.on=true;R.us=0;R.t0=Date.now();try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(w=>{R.wl=w}).catch(()=>{})}catch(e){}
+recUI();R.timer=setInterval(()=>{const e=$('#rs');if(e&&R.on)e.innerHTML='<span class="rd"></span>'+ft((Date.now()-R.t0)/1000)},500)}
 /* 页面 */
 function renderAll(){const rid=ls('recent',null),rv=V.items.find(v=>v.id==rid),pr=ls('prog',{})[rid]||0;
 $('#v-home').innerHTML=`<div class="hero" role="img" aria-label="映心影院：两个人一起观影、聆听音乐、享受生活的美好"></div>
@@ -193,29 +240,88 @@ const q=(ls('q','')||'').toLowerCase();const list=V.items.filter(v=>v.name.toLow
 $('#vlist').innerHTML=`<input type="search" id="vq" placeholder="搜索片名" value="${esc(ls('q',''))}"><div class="grid">${list.map(poster).join('')}</div>${list.length?'':'<p class="m">'+(V.items.length?'没有找到这部影片':'还没有影片，请到「我的 → 设置 → 素材管理」添加。')+'</p>'}`;const s=$('#vq');if(s)s.addEventListener('change',e=>{sv('q',e.target.value);renderAll()});rmg()}
 async function renderMe(){let u='';try{const e=await navigator.storage.estimate();u=`已用 ${fs(e.usage)} / 可用约 ${fs(e.quota)}`}catch(x){u='当前浏览器无法读取'}
 $('#v-me').innerHTML=`<h1 style="font-size:26px">我的</h1><div class="card row" style="flex-wrap:nowrap;gap:14px"><img class="appic" src="${ICON}" alt="映心影院"><div style="min-width:0"><b style="font-size:18px">映心影院</b><p class="m">V1.0</p></div></div>
-<button class="card row" style="color:var(--t);font:inherit;text-align:left;justify-content:space-between;flex-wrap:nowrap" data-act="rec"><span><b>生活记录</b><br><span class="m">摄像头录制 · 开始 / 停止</span></span><span>›</span></button>
-<button class="card row" style="color:var(--t);font:inherit;text-align:left;justify-content:space-between;flex-wrap:nowrap" data-act="tab" data-v="set"><span><b>设置</b><br><span class="m">素材管理</span></span><span>›</span></button>
+
+<button class="card row" style="color:var(--t);font:inherit;text-align:left;justify-content:space-between;flex-wrap:nowrap" data-act="tab" data-v="set"><span><b>设置</b><br><span class="m">录制 · 素材管理 · 备份</span></span><span>›</span></button>
 <div class="card"><b>本机存储</b><p class="m">${u}</p><p class="m">影片、音乐都保存在本机；清除浏览器网站数据会丢失。</p></div>
 <button class="btn danger" style="min-height:52px" data-act="quit">退出应用</button>`}
-function renderSet(){$('#v-set').innerHTML=`<button class="btn" style="align-self:flex-start" data-act="tab" data-v="me">‹ 我的</button><h1 style="font-size:26px">设置</h1>
-<button class="card row" style="color:var(--t);font:inherit;text-align:left;justify-content:space-between;flex-wrap:nowrap" data-act="tab" data-v="mgr"><span><b>素材管理</b><br><span class="m">电影 ${V.items.length} · MP3 ${M.items.length} · 上传、删除、整理</span></span><span>›</span></button>`}
-function tab(v){const pe=$('#pv');if(v!=='lib'&&pe&&!pe.paused)pe.pause();document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===(PAR[v]||v)));if(v==='home')renderAll();if(v==='me')renderMe();if(v==='set')renderSet();if(v==='mgr')renderMgr();scrollTo(0,0)}
+const BKLS=['pl','prog','recent','scx','mmode','sbr'];
+async function buildBak(full){const [vs,ss,sc]=await Promise.all([run(vopen,'videos','readonly',x=>x.getAll()),run(mopen,'songs','readonly',x=>x.getAll()),run(mopen,'scenes','readonly',x=>x.getAll())]);
+const parts=[],H={v:1,full,ls:{},videos:[],songs:[],scenes:[]};BKLS.forEach(k=>{const x=localStorage.getItem(k);if(x!=null)H.ls[k]=x});let off=0;
+const add=(b,m)=>{if(full){m.off=off;m.len=b.size;m.type=b.type;off+=b.size;parts.push(b)}};
+vs.forEach(r=>{const m={id:r.id,name:r.name,size:r.size,added:r.added};add(r.blob,m);H.videos.push(m)});
+ss.forEach(r=>{const m={id:r.id,name:r.name,size:r.size,added:r.added};add(r.blob,m);H.songs.push(m)});
+if(full)sc.forEach(r=>['vid','aud'].forEach(k=>{if(r[k]){const m={id:r.id,k,name:r[k].name||k,size:r[k].size};add(r[k],m);H.scenes.push(m)}}));
+const hb=new TextEncoder().encode(JSON.stringify(H)),lb=new Uint8Array(4);new DataView(lb.buffer).setUint32(0,hb.length,true);
+return new Blob([new TextEncoder().encode('YXBAK1\n'),lb,hb,...parts],{type:'application/octet-stream'})}
+async function doBak(full){toast('正在生成备份…');try{const b=await buildBak(full),d=new Date(),p=n=>String(n).padStart(2,'0');await exportFile(b,'映心影院备份_'+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+(full?'_完整':'_设置')+'.yxbak');toast('备份已生成：'+fs(b.size))}catch(e){toast('备份失败：'+errTxt(e))}}
+async function restoreBak(f){try{const u=new Uint8Array(await f.slice(0,11).arrayBuffer());if(new TextDecoder().decode(u.slice(0,7))!=='YXBAK1\n')return toast('这不是映心影院的备份文件');
+const hl=new DataView(u.buffer).getUint32(7,true),H=JSON.parse(await f.slice(11,11+hl).text()),base=11+hl,L=H.ls||{};
+if(!confirm('恢复这个备份？已有内容不会被覆盖，同名同大小的素材会跳过。'))return;
+const idm={},bl=m=>f.slice(base+m.off,base+m.off+m.len,m.type||''),cur=V.items.concat(M.items);let n=0;
+for(const [list,open,st,px] of [[H.videos,vopen,'videos','v'],[H.songs,mopen,'songs','s']])for(const m of list||[]){const e=cur.find(x=>x.name===m.name&&x.size===m.size);if(e){idm[m.id]=e.id;continue}if(!H.full)continue;
+const id=cur.some(x=>x.id===m.id)?uid(px):m.id;await run(open,st,'readwrite',x=>x.put({id,name:m.name,size:m.size,blob:bl(m),added:m.added||Date.now()}));idm[m.id]=id;n++;toast('恢复中… '+n)}
+for(const m of H.scenes||[]){const d=(await run(mopen,'scenes','readonly',x=>x.get(m.id)))||{id:m.id};if(!d[m.k]){d[m.k]=new File([bl(m)],m.name,{type:m.type||''});await run(mopen,'scenes','readwrite',x=>x.put(d));n++}}
+if(L.scx){JSON.parse(L.scx).forEach(x=>{if(!SC.find(y=>y.id===x.id))SC.push(x)});sv('scx',SC.filter(x=>x.c))}
+if(L.pl){JSON.parse(L.pl).forEach(q=>{const ids=q.ids.map(i=>idm[i]).filter(Boolean),e=PL.find(x=>x.name===q.name);if(e)ids.forEach(i=>{if(!e.ids.includes(i))e.ids.push(i)});else PL.push({id:PL.some(x=>x.id===q.id)?uid('p'):q.id,name:q.name,ids})});sv('pl',PL)}
+if(L.prog){const bp=JSON.parse(L.prog),cp=ls('prog',{});for(const k in bp){const t=idm[k];if(t&&cp[t]==null)cp[t]=bp[k]}sv('prog',cp)}
+if(L.recent&&!ls('recent',null)){const t=idm[JSON.parse(L.recent)];if(t)sv('recent',t)}
+if(L.mmode){M.mode=JSON.parse(L.mmode);applyLoop()}if(L.sbr){SS.br=JSON.parse(L.sbr);sv('sbr',SS.br)}
+await loadV();await loadM();await loadSc();renderAll();renderMus();renderSleep();renderBak();toast('恢复完成')}catch(e){toast('恢复失败：'+errTxt(e))}}
+function renderBak(){const sz=V.items.reduce((a,v)=>a+v.size,0)+M.items.reduce((a,v)=>a+v.size,0);$('#v-bak').innerHTML=`<button class="btn" style="align-self:flex-start" data-act="tab" data-v="set">‹ 设置</button><h1 style="font-size:26px">备份与恢复</h1>
+<div class="card stack"><b>导出设置备份</b><p class="m">只含歌单、观看进度、自定义场景和播放设置，文件很小。恢复时按「名称+大小」对应到已有素材。</p><button class="btn gold" data-act="dobak" data-f="0">导出设置备份</button></div>
+<div class="card stack"><b>导出完整备份</b><p class="m">包含全部影片、音乐和助眠素材，文件大小约等于素材总和（影片+音乐现有 ${fs(sz)}）。素材很多时手机可能处理不了，建议先少量试一次。</p><button class="btn" data-act="dobak" data-f="1">导出完整备份</button></div>
+<div class="card stack"><b>恢复备份</b><p class="m">选择之前导出的 .yxbak 文件。已有内容不会被覆盖，同名同大小的素材会跳过。</p><label class="btn" for="fbk">选择备份文件</label></div>
+<p class="m">备份文件请存到手机「文件」或发到网盘、电脑。密码锁设置不会被备份。</p>`}
+function renderSet(){$('#v-set').innerHTML=`<button class="btn" style="align-self:flex-start" data-act="tab" data-v="me">‹ 我的</button><h1 style="font-size:26px">设置</h1>${recPanel()}
+<button class="card row" style="color:var(--t);font:inherit;text-align:left;justify-content:space-between;flex-wrap:nowrap" data-act="tab" data-v="mgr"><span><b>素材管理</b><br><span class="m">电影 ${V.items.length} · MP3 ${M.items.length} · 上传、删除、整理</span></span><span>›</span></button>
+<button class="card row" style="${CB}" data-act="tab" data-v="bak"><span><b>备份与恢复</b><br><span class="m">歌单、进度、素材的导出和导入</span></span><span>›</span></button>
+`}
+function tab(v){const pe=$('#pv');if(v!=='lib'&&pe&&!pe.paused)pe.pause();document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===(PAR[v]||v)));if(v==='home')renderAll();if(v==='me')renderMe();if(v==='set')renderSet();if(v==='mgr')renderMgr();if(v==='bak')renderBak();scrollTo(0,0)}
+/* 密码锁：进入「我的」需要 4 位数字密码（防随手乱点，不是加密） */
+const norm=x=>x.trim().toLowerCase(),LKC=()=>ls('lock',null);
+const hh=(t,salt)=>{let x=salt+':'+t;for(let i=0;i<500;i++){let h1=0xdeadbeef^i,h2=0x41c6ce57^i;for(let j=0;j<x.length;j++){const c=x.charCodeAt(j);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);x=(h2>>>0).toString(36)+(h1>>>0).toString(36)}return x};
+let LK={mode:'enter',buf:'',tmp:'',bad:0,until:0};
+function showLock(chg){const c=LKC();LK={mode:c&&!chg?'enter':'new1',buf:'',tmp:'',bad:LK.bad,until:LK.until,chg:!!chg,keep:false};renderLock();$('#lk').classList.add('on')}
+function lkHide(){$('#lk').classList.remove('on');$('#lk').innerHTML=''}
+function lkOk(){U.me=true;const ch=LK.chg;lkHide();toast('密码已保存');if(!ch)tab('me')}
+function renderLock(){const T={enter:['输入密码','进入「我的」需要密码'],new1:['设置密码','请设置 4 位数字密码'],new2:['再输入一次','确认密码'],q:['设置找回问题','忘记密码时用来找回'],forgot:['找回密码','回答你设置的问题']}[LK.mode],c=LKC();
+let h=`<div style="margin:auto;width:100%;max-width:320px;display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center"><img class="appic" src="${ICON}" alt=""><h2>${T[0]}</h2><p class="m">${T[1]}</p>`;
+if(LK.mode==='q'||LK.mode==='forgot')h+=(LK.mode==='q'?'<input type="text" id="lkq" placeholder="问题，例如：我们的纪念日？" maxlength="30">':`<p><b>${esc(c.q)}</b></p>`)+`<input type="text" id="lka" placeholder="答案" maxlength="30"><button class="btn gold" style="width:100%" data-act="${LK.mode==='q'?'lkq':'lkfv'}">确定</button>`;
+else{h+=`<div style="font-size:28px;letter-spacing:10px;height:36px">${[0,1,2,3].map(i=>i<LK.buf.length?'●':'○').join('')}</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%">${[1,2,3,4,5,6,7,8,9].map(n=>`<button class="btn" data-act="lk" data-k="${n}">${n}</button>`).join('')}<span></span><button class="btn" data-act="lk" data-k="0">0</button><button class="btn" data-act="lk" data-k="del">⌫</button></div>`;if(LK.mode==='enter')h+='<button class="btn" style="border:0;background:none;color:var(--m)" data-act="lkforgot">忘记密码？</button>'}
+$('#lk').innerHTML=h+'<button class="btn" style="border:0;background:none;color:var(--m)" data-act="lkcancel">取消</button></div>'}
+function lkKey(k){if(k==='del')LK.buf=LK.buf.slice(0,-1);else if(LK.buf.length<4)LK.buf+=k;renderLock();if(LK.buf.length===4)setTimeout(lkDone,150)}
+function lkDone(){const c=LKC(),b=LK.buf;LK.buf='';
+if(LK.mode==='enter'){if(Date.now()<LK.until){renderLock();return toast('错误次数过多，请稍后再试')}
+if(c&&hh(b,c.s)===c.h){LK.bad=0;U.me=true;lkHide();tab('me')}else{if(++LK.bad>=5){LK.bad=0;LK.until=Date.now()+30000;toast('错误 5 次，30 秒后再试')}else toast('密码不对');renderLock()}}
+else if(LK.mode==='new1'){LK.tmp=b;LK.mode='new2';renderLock()}
+else if(LK.mode==='new2'){if(b!==LK.tmp){LK.mode='new1';renderLock();return toast('两次不一致，请重新设置')}
+if(LK.keep){sv('lock',{...c,h:hh(b,c.s)});lkOk()}else{LK.pin=b;LK.mode='q';renderLock()}}}
 /* 素材管理：电影 / MP3 / 助眠 的上传、删除、整理都在这里 */
+function dlBox(k){return `<div class="card"><div class="lab">从网址下载</div><input id="dlu" type="url" inputmode="url" autocapitalize="off" placeholder="粘贴${k==='vid'?'影片':'歌曲'}的直链（.${k==='vid'?'mp4':'mp3'} 文件地址）" style="width:100%;min-height:44px;border-radius:22px;border:1px solid #4A3828;background:#1C1511;color:var(--t);padding:0 16px;font:inherit;box-sizing:border-box"><button class="btn" style="margin-top:8px;width:100%" data-act="dl" data-k="${k}">下载并保存</button><p class="m" id="dlm" style="margin-top:6px">只支持文件直链。抖音、QQ音乐、YouTube 这类平台的页面链接下不了。</p></div>`}
+async function dlUrl(kind){const el=$('#dlu'),u=(el.value||'').trim(),m=$('#dlm'),say=t=>{if(m)m.textContent=t};if(!/^https?:\/\//i.test(u))return toast('请粘贴以 http:// 或 https:// 开头的文件直链');say('连接中…');
+try{const r=await fetch(u);if(!r.ok)throw new Error('服务器返回 '+r.status);const ct=(r.headers.get('content-type')||'').split(';')[0].trim();if(/^text\/|json|xml/.test(ct))throw new Error('这个链接是网页，不是文件直链');
+const len=+r.headers.get('content-length')||0;if(len>1.5e9)throw new Error('文件超过 1.5GB，手机浏览器处理不了');if(len>8e8&&!confirm('文件约 '+fs(len)+'，下载会占用较多内存，确定继续？'))return say('');
+const rd=r.body.getReader(),ch=[];let got=0;for(;;){const x=await rd.read();if(x.done)break;ch.push(x.value);got+=x.value.length;say('下载中 '+fs(got)+(len?' / '+fs(len)+'（'+Math.round(got/len*100)+'%）':''))}
+let name='';try{name=decodeURIComponent(new URL(u).pathname.split('/').pop()||'')}catch(e){}
+if(!/\.[a-z0-9]{2,4}$/i.test(name))name=(name||'download')+({'audio/mpeg':'.mp3','audio/mp4':'.m4a','audio/aac':'.aac','audio/wav':'.wav','audio/x-wav':'.wav','video/mp4':'.mp4','video/webm':'.webm','video/quicktime':'.mov'}[ct]||(kind==='vid'?'.mp4':'.mp3'));
+say('');el.value='';(kind==='vid'?addVideos:addSongs)([new File(ch,name,{type:ct})])}
+catch(e){say('');if(e instanceof TypeError){toast('下载失败：该网站不允许网页直接下载，或网络不通');say('提示：先用手机浏览器自带的下载把文件存到手机，再用上面的「上传」按钮选择它。')}else toast('下载失败：'+(e.message||'未知原因'))}}
+function envWarn(){if(ENV.db===false)return `<div class="card" style="border-color:#7A3A2E"><b style="color:#F29A8A">这里没法保存文件</b><p class="m">当前浏览器不允许保存数据（${esc(ENV.err||'未知原因')}）。可能是预览窗口、无痕模式或内置浏览器，请换成手机自带浏览器或 Chrome 打开。</p></div>`;
+if(ENV.frame)return `<div class="card" style="border-color:#7A5A2E"><b>当前在预览窗口里打开</b><p class="m">预览窗口常常限制选文件。如果点上传没反应，请把文件下载后用手机浏览器直接打开。</p></div>`;return ''}
 function rmg(){const e=$('#v-mgr');if(e&&e.classList.contains('on'))renderMgr()}
 function renderMgr(){if(G.pl!=='all'&&!PL.find(p=>p.id==G.pl))G.pl='all';
 const seg=`<div class="seg">${[['vid','电影（'+V.items.length+'）'],['mp3','MP3（'+M.items.length+'）'],['sleep','助眠']].map(x=>`<button class="btn ${G.t===x[0]?'on2':''}" data-act="gt" data-t="${x[0]}">${x[1]}</button>`).join('')}</div>`;let body='';
-if(G.t==='vid'){body=`<button class="btn gold" data-act="vadd">上传影片（相册 / 文件）</button><div>${V.items.map(v=>`<div class="mrow"><div class="nm"><b>${esc(v.name)}</b><span class="m">${ft(v.dur)} · ${fs(v.size)}</span></div><button class="btn" data-act="vexport" data-id="${v.id}">导出</button><button class="btn danger" data-act="vdel" data-id="${v.id}">删除</button></div>`).join('')||'<p class="m">还没有影片</p>'}</div><p class="m">影片保存在本机浏览器中，清除网站数据会丢失，请用「导出」备份。</p>`}
+if(G.t==='vid'){body=`<label class="btn gold" for="fv">上传影片（相册 / 文件）</label><label class="m" for="fvx" style="text-align:center;text-decoration:underline;padding:4px">找不到影片？改从文件管理器选</label>${dlBox('vid')}<div>${V.items.map(v=>`<div class="mrow"><div class="nm"><b>${esc(v.name)}</b><span class="m">${ft(v.dur)} · ${fs(v.size)}</span></div><button class="btn" data-act="vexport" data-id="${v.id}">导出</button><button class="btn danger" data-act="vdel" data-id="${v.id}">删除</button></div>`).join('')||'<p class="m">还没有影片</p>'}</div><p class="m">影片保存在本机浏览器中，清除网站数据会丢失，请用「导出」备份。</p>`}
 else if(G.t==='mp3'){const gp=PL.find(p=>p.id==G.pl);
-body=`<button class="btn gold" data-act="maddf">上传 MP3（文件 / 相册）</button><div class="chips"><button class="btn ${G.pl==='all'?'on2':''}" data-act="gpl" data-id="all">全部歌曲</button>${PL.map(p=>`<button class="btn ${G.pl==p.id?'on2':''}" data-act="gpl" data-id="${p.id}">${esc(p.name)}</button>`).join('')}<button class="btn" data-act="mnewpl">＋ 新建歌单</button>${gp?'<button class="btn danger" data-act="mdelpl">删除此歌单</button>':''}</div>${gp?`<p class="m">点右侧按钮，把歌曲加入或移出「${esc(gp.name)}」。</p>`:''}
+body=`<label class="btn gold" for="fm">上传 MP3（文件 / 相册）</label><label class="m" for="fmx" style="text-align:center;text-decoration:underline;padding:4px">找不到歌曲？改从文件管理器选</label>${dlBox('mp3')}<div class="chips"><button class="btn ${G.pl==='all'?'on2':''}" data-act="gpl" data-id="all">全部歌曲</button>${PL.map(p=>`<button class="btn ${G.pl==p.id?'on2':''}" data-act="gpl" data-id="${p.id}">${esc(p.name)}</button>`).join('')}<button class="btn" data-act="mnewpl">＋ 新建歌单</button>${gp?'<button class="btn danger" data-act="mdelpl">删除此歌单</button>':''}</div>${gp?`<p class="m">点右侧按钮，把歌曲加入或移出「${esc(gp.name)}」。</p>`:''}
 <div>${M.items.map(x=>{const inn=gp&&gp.ids.includes(x.id);return `<div class="mrow"><div class="nm"><b>${esc(x.name)}</b><span class="m">${ft(x.dur)} · ${fs(x.size)}</span></div>${gp?`<button class="btn ${inn?'on2':''}" data-act="mtog" data-id="${x.id}">${inn?'已加入 ✓':'＋ 加入'}</button>`:`<button class="btn danger" data-act="mdel" data-id="${x.id}">删除</button>`}</div>`}).join('')||'<p class="m">还没有歌曲</p>'}</div>`}
-else{const d=SD[G.sc]||{};const row=(k,label,f)=>`<div class="mrow"><div class="nm"><b>${label}</b><span class="m">${f?esc(f.name||'已添加')+' · '+fs(f.size):'未添加'}</span></div><button class="btn" data-act="sadd" data-k="${k}">${f?'更换':'添加'}</button>${f?`<button class="btn danger" data-act="sdelf" data-k="${k}">删除</button>`:''}</div>`;
-body=`<div class="chips">${SC.map(x=>`<button class="btn ${G.sc===x.id?'on2':''}" data-act="gsc" data-id="${x.id}">${x.n}</button>`).join('')}</div><div class="card">${row('vid','画面视频',d.vid)}${row('aud','环境声音',d.aud)}</div><p class="m">每个场景使用你自己放入的真实画面视频和环境声音（本机保存）。</p>`}
-$('#v-mgr').innerHTML=`<button class="btn" style="align-self:flex-start" data-act="tab" data-v="set">‹ 设置</button><h1 style="font-size:26px">素材管理</h1>${seg}${body}`}
+else{const d=SD[G.sc]||{};const row=(k,label,f)=>`<div class="mrow"><div class="nm"><b>${label}</b><span class="m">${f?esc(f.name||'已添加')+' · '+fs(f.size):'未添加'}</span></div><label class="btn" for="${k==='vid'?'fsv':'fsa'}">${f?'更换':'添加'}</label>${f?`<button class="btn danger" data-act="sdelf" data-k="${k}">删除</button>`:''}</div>`;
+body=`<div class="chips">${SC.map(x=>`<button class="btn ${G.sc===x.id?'on2':''}" data-act="gsc" data-id="${x.id}">${x.n}</button>`).join('')}<button class="btn" data-act="snew">＋ 新建场景</button></div>${(SC.find(x=>x.id===G.sc)||{}).c?'<div class="row"><button class="btn" data-act="srename">改名</button><button class="btn danger" data-act="sdelsc">删除此场景</button></div>':''}<div class="card">${row('vid','画面视频',d.vid)}${row('aud','环境声音',d.aud)}</div><p class="m">每个场景使用你自己放入的真实画面视频和环境声音（本机保存）。</p>`}
+$('#v-mgr').innerHTML=`<button class="btn" style="align-self:flex-start" data-act="tab" data-v="set">‹ 设置</button><h1 style="font-size:26px">素材管理</h1>${envWarn()}${seg}${body}<p class="m">点上传没反应？多半是当前浏览器不支持选文件（常见于 App 内置浏览器），请改用 Chrome 等手机浏览器打开。</p>`}
 function quit(){if(!confirm('确定退出映心影院？'))return;if(R.on&&R.mr&&R.mr.state!=='inactive'){try{R.mr.stop()}catch(e){}}stopSl(1);au.pause();if(R.stream)R.stream.getTracks().forEach(t=>t.stop());try{window.close()}catch(e){}
 document.body.innerHTML='<div style="min-height:100vh;display:flex;flex-direction:column;gap:14px;align-items:center;justify-content:center;background:#0E0B09;color:#F5ECE0;font-family:sans-serif"><img src="'+ICON+'" style="width:96px;height:96px;border-radius:22px"><h2>已退出映心影院</h2><p style="color:#A89A8A;font-size:12px">网页无法自行关闭，请直接划走或关闭此页面。</p><button onclick="location.reload()" style="min-height:44px;border-radius:22px;border:0;padding:0 24px;background:#F2B968;font-weight:700">重新进入</button></div>'}
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act,id=b.dataset.id,d=b.dataset;
-if(a==='tab')tab(d.v);else if(a==='vplay')openV(id);else if(a==='vclose')closeV();else if(a==='vdel')delV(id);else if(a==='vexport'){const v=V.items.find(x=>x.id===id);if(v){const blob=await (await fetch(v.url)).blob();await exportFile(blob,v.name)}}else if(a==='vadd')$('#fv').click();
-else if(a==='maddf')$('#fm').click();else if(a==='mplay')playS(id);else if(a==='mpp'){if(M.cur==null){const q=queue();if(q.length)playS(q[0].id)}else au.paused?au.play():au.pause()}
+if(a==='tab')tab(d.v);else if(a==='vplay')openV(id);else if(a==='vclose')closeV();else if(a==='vdel')delV(id);else if(a==='vexport'){const v=V.items.find(x=>x.id===id);if(v){const blob=await (await fetch(v.url)).blob();await exportFile(blob,v.name)}}else if(a==='mplay')playS(id);else if(a==='mpp'){if(M.cur==null){const q=queue();if(q.length)playS(q[0].id)}else au.paused?au.play():au.pause()}
 else if(a==='mnext')step(1);else if(a==='mprev')step(-1);else if(a==='mpl'){M.pl=id;renderMus()}
 else if(a==='mnewpl'){const n=prompt('歌单名称');if(n&&n.trim()){const p={id:uid('p'),name:n.trim(),ids:[]};PL.push(p);sv('pl',PL);G.pl=p.id;renderMus()}}
 else if(a==='mdelpl'){if(confirm('删除这个歌单？（歌曲不会被删除）')){const gid=G.pl;PL=PL.filter(p=>p.id!=gid);sv('pl',PL);if(M.pl==gid)M.pl='all';G.pl='all';renderMus()}}
@@ -223,15 +329,34 @@ else if(a==='gpl'){G.pl=id;renderMgr()}else if(a==='gt'){G.t=d.t;renderMgr()}els
 else if(a==='mtog'){const p=PL.find(x=>x.id==G.pl);if(p){if(p.ids.includes(id))p.ids=p.ids.filter(i=>i!=id);else p.ids.push(id);sv('pl',PL);renderMus()}}
 else if(a==='sclose')$('#sheet').classList.remove('on');
 else if(a==='mdel'){const s=M.items.find(x=>x.id==id);if(s&&confirm('删除「'+s.name+'」？')){if(M.cur==id){au.pause();M.cur=null}await run(mopen,'songs','readwrite',x=>x.delete(id));PL.forEach(p=>p.ids=p.ids.filter(i=>i!=id));sv('pl',PL);loadM()}}
-else if(a==='ssel'){SS.sel=id;renderSleep()}else if(a==='smin'){SS.min=+d.m;renderSleep()}else if(a==='sadd'){G.k=d.k;const f=$('#fs');f.accept=d.k==='vid'?'video/*':'audio/*';f.click()}
+else if(a==='ssel'){SS.sel=id;renderSleep()}else if(a==='smin'){SS.min=+d.m;renderSleep()}
 else if(a==='sdelf'){if(confirm('删除这个素材？')){const x=SD[G.sc]||{id:G.sc};delete x[d.k];try{await run(mopen,'scenes','readwrite',st=>st.put(x));SD[G.sc]=x;toast('已删除')}catch(err){toast('删除失败')}renderSleep()}}
 else if(a==='sgo')startSl();else if(a==='sstop')stopSl();
-else if(a==='rec')renderRec();else if(a==='rreturn')returnRec();else if(a==='rclose')closeRec();else if(a==='rstart')startRec();else if(a==='rstop'){if(R.mr&&R.mr.state!=='inactive')R.mr.stop()}
-else if(a==='rq'){if(!R.on){R.q=+d.q;renderRec()}}else if(a==='rflip'){if(!R.on){R.face=R.face==='user'?'environment':'user';initCam()}}
-else if(a==='rexport'&&R.blob){await exportFile(R.blob,'映心_'+Date.now()+'.'+R.ext)}else if(a==='rsave'){await addVideos([new File([R.blob],'映心_'+Date.now()+'.'+R.ext,{type:R.blob.type})]);$('#rr').innerHTML='<p class="m">已存入影片库</p>'}
-else if(a==='rdrop'){if(confirm('放弃这段录像？')){R.blob=null;$('#rr').innerHTML=''}}else if(a==='quit')quit()});
-$('#fv').onchange=e=>{addVideos(e.target.files);e.target.value=''};$('#fm').onchange=e=>{addSongs(e.target.files);e.target.value=''};
-$('#fs').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const d=SD[G.sc]||{id:G.sc};d[G.k]=f;try{await run(mopen,'scenes','readwrite',s=>s.put(d));SD[G.sc]=d;toast('已保存')}catch(x){toast('保存失败：空间不足')}renderSleep()};
+else if(a==='rgo'){if(R.on){if(R.mr&&R.mr.state!=='inactive'){R.us=1;R.mr.stop()}}else recGo()}else if(a==='rset'){if(!R.on){R[d.k]=(d.k==='q'||d.k==='vol')?+d.v:d.v;if(d.k==='src')sv('rsrc',R.src);if(d.k==='vol')sv('rvol',R.vol);recUI()}}else if(a==='rview'){const r=$('#rr');if(r&&!r.querySelector('video'))r.insertAdjacentHTML('beforeend','<video src="'+R.url+'" controls playsinline style="width:100%;max-height:34vh;border-radius:12px;background:#000;margin-top:8px"></video>')}else if(a==='rexport'&&R.blob){await exportFile(R.blob,'映心_'+Date.now()+'.'+R.ext)}else if(a==='rsave'){await addVideos([new File([R.blob],'映心_'+Date.now()+'.'+R.ext,{type:R.blob.type})]);$('#rr').innerHTML='<p class="m">已存入影片库</p>'}
+else if(a==='rdrop'){if(confirm('放弃这段录像？')){R.blob=null;$('#rr').innerHTML=''}}else if(a==='quit')quit();
+else if(a==='dl')dlUrl(d.k);
+
+else if(a==='mmode'){const k=Object.keys(MODES);M.mode=k[(k.indexOf(M.mode)+1)%k.length];sv('mmode',M.mode);applyLoop();renderMus();toast(MODES[M.mode])}
+else if(a==='mtimer'){M.tp=!M.tp;renderMus()}
+else if(a==='mset'){const m=d.m;if(MT.vol!=null){au.volume=MT.vol;MT.vol=null}MT.end=0;MT.after=false;if(m==='after')MT.after=true;else if(+m>0)MT.end=Date.now()+m*60000;M.tp=false;applyLoop();renderMus();toast(m==='after'?'本曲播完后关闭':+m>0?m+' 分钟后关闭':'已取消定时')}
+else if(a==='sbr'){SS.br=d.b;sv('sbr',SS.br);renderSleep()}
+else if(a==='snew'){const n=prompt('场景名称（例如：篝火、小溪）');if(n&&n.trim()){const sid=uid('sc');SC.push({id:sid,n:n.trim(),c:1});sv('scx',SC.filter(x=>x.c));SD[sid]={id:sid};G.sc=sid;renderMgr();renderSleep()}}
+else if(a==='srename'){const x=SC.find(y=>y.id===G.sc),n=x&&prompt('新名称',x.n);if(n&&n.trim()){x.n=n.trim();sv('scx',SC.filter(y=>y.c));renderMgr();renderSleep()}}
+else if(a==='sdelsc'){const x=SC.find(y=>y.id===G.sc);if(x&&confirm('删除场景「'+x.n+'」及其素材？')){await run(mopen,'scenes','readwrite',st=>st.delete(x.id));SC.splice(SC.indexOf(x),1);delete SD[x.id];sv('scx',SC.filter(y=>y.c));G.sc='fire';if(SS.sel===x.id)SS.sel='fire';renderMgr();renderSleep()}}
+else if(a==='lk')lkKey(d.k);else if(a==='lkcancel')lkHide();else if(a==='lkchg')showLock(true);
+else if(a==='lkforgot'){LK.mode='forgot';renderLock()}
+else if(a==='lkfv'){const c=LKC();if(hh(norm($('#lka').value),c.s)===c.a){LK.keep=true;LK.mode='new1';LK.buf='';renderLock()}else toast('答案不对')}
+else if(a==='lkq'){const q=$('#lkq').value.trim(),an=$('#lka').value;if(!q||!norm(an))return toast('问题和答案都要填');const sa=Math.random().toString(36).slice(2);sv('lock',{s:sa,h:hh(LK.pin,sa),q,a:hh(norm(an),sa)});lkOk()}
+else if(a==='dobak')doBak(d.f==='1')});
+const pick=(el,fn)=>{el.onchange=()=>{const fl=[...el.files];el.value='';if(!fl.length)return;toast('已选择 '+fl.length+' 个文件，正在保存…');fn(fl)}};
+pick($('#fv'),addVideos);pick($('#fvx'),addVideos);pick($('#fm'),addSongs);pick($('#fmx'),addSongs);
+const pickS=(el,k)=>{el.onchange=async()=>{const f=el.files[0];el.value='';if(!f)return;const d=SD[G.sc]||{id:G.sc};d[k]=f;try{await run(mopen,'scenes','readwrite',s=>s.put(d));SD[G.sc]=d;toast('已保存')}catch(x){toast('保存失败：'+errTxt(x))}renderSleep()}};
+pickS($('#fsv'),'vid');pickS($('#fsa'),'aud');
 $('#pv').onplay=()=>{if(!au.paused)au.pause()};
+document.addEventListener('change',e=>{if(e.target.id==='mmsel'){M.mode=e.target.value;sv('mmode',M.mode);applyLoop();toast(MODES[M.mode])}});applyLoop();
+setInterval(()=>{if(!MT.end)return;const r=MT.end-Date.now();if(r<=0){au.pause();if(MT.vol!=null)au.volume=MT.vol;MT.vol=null;MT.end=0;renderMus();return toast('定时时间到，音乐已关闭')}if(r<=20000&&!au.paused){if(MT.vol==null)MT.vol=au.volume;au.volume=Math.max(0,MT.vol*r/20000)}const b=$('#mtm');if(b)b.textContent=tLabel()},1000);
+
+$('#fbk').onchange=()=>{const f=$('#fbk').files[0];$('#fbk').value='';if(f)restoreBak(f)};
+(async()=>{try{await run(mopen,'songs','readonly',x=>x.count());ENV.db=true}catch(e){ENV.db=false;ENV.err=errTxt(e)}rmg()})();
 renderAll();renderMus();renderSleep();loadV();loadM();loadSc();
 </script></body></html>
